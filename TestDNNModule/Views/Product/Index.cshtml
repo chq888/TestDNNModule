@@ -1,0 +1,85 @@
+﻿@using System.Text.RegularExpressions
+@using DotNetNuke.Entities.Portals
+@using DotNetNuke.Web.Client.ClientResourceManagement
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IList<COM.Modules.TestDNNTestDNNModule.Models.Product>>
+@using DotNetNuke.Web.Mvc.Helpers
+@{
+    var moduleId = Dnn.ModuleContext.ModuleId;
+    //Dnn.ModuleContext.PortalAlias.HTTPAlias
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/css/bootstrap.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/css/site.css");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/bootstrap.min.js", 1);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/lodash.js", 1);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/angular.min.js", 2);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/app.js", 3);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/directive/common.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/product/productCtrl.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/service/requestService.js", 20);
+}
+
+<div>
+
+    <div id="menuitems-wrap-@moduleId" class="container" ng-controller="productctrl" ng-init="onInit('@Dnn.ModuleContext.PortalAlias.HTTPAlias', '@Dnn.ModuleContext.PortalSettings.ActiveTab.TabPath')">
+        <h1>Product List</h1>
+        <br />
+        <form>
+            <div>
+                <label for="Code" class="control-label pull-left" style="margin-right: 50px">Code</label>
+                <input type="text" class="form-control" style="width:50%" ng-model="vm.Code" name="Code" placeholder="Enter Text...">
+            </div>
+
+            <div class="form-group-top">
+                <label for="Category" class="control-label pull-left" style="margin-right: 23px">Category</label>
+                <select class="form-control pull-left" style="width:50%;" ng-options="cate.Name for cate in vm.Categories" ng-model="vm.selectedCategory"></select>
+                <button type="button" class="btn btn-primary" style="margin-left: 20px" ng-click="search()">Search</button>
+            </div>
+        </form>
+        <br />
+        <div>
+            <a class="btn btn-default" href="@Url.Action("Edit", "Product", new {ctl = "Edit", itemId = "-1"})">@Dnn.LocalizeString("AddItem")</a>
+        </div>
+        <br />
+        <table class="table table-bordered" style="width:80%" ng-show="vm.list.length > 0">
+            <thead>
+            <tr>
+              @*<th>#</th>*@
+              <th>Id</th>
+              <th>Code</th>
+              <th>Name</th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng:repeat="item in vm.list">
+              @*<th width="5%" scope="row">{{$index}}</th>*@
+              <th width="10%" scope="row">{{item.Id}}</th>
+              <td width="20%">{{item.Code}}</td>
+              <td width="20%">{{item.Name}}</td>
+              <td width="5%">
+                <a change-url id="{{item.Id}}" dataid="{{item.Id}}" href="@Url.Action("Edit", "Product", new {ctl = "Edit", itemId = "angularitemid"})">Detail</a>
+              </td>
+              <td width="5%">
+                <a linkdisabled ng-click="del(item.Id)" change-url id="{{item.Id}}" dataid="{{item.Id}}" href="#">@Dnn.LocalizeString("DeleteItem")</a>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.popover-markup > .trigger').popover({
+            html: true,
+            placement: "bottom",
+            title: function () {
+                return $(this).parent().find('.head').html();
+            },
+            content: function () {
+                return $(this).parent().find('.content').html();
+            },
+            template: '<div class="popover dashboardPopover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"></div></div></div>'
+        });
+    });
+</script>

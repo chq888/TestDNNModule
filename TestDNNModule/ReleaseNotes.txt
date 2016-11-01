@@ -1,0 +1,23 @@
+﻿<h3>TestDNNModule</h3>
+<p class="Contributor">
+	cuonghq612 <br />
+	<a href="mailto:cuonghq612@gmail.com">cuonghq612@gmail.com</a><br />
+	<a href=localhost/TestDNN>localhost/TestDNN</a><br />
+</p>
+<hr/>
+<div class="License">
+	<h3>About the TestDNNModule</h3>
+	<p class="Owner">
+		<b>Version CHANGEME</b>: 8.0.4<br /><br />
+	</p>
+	<p>Description about version.</p>
+	
+	<h4>Bug Fixes</h4>
+	<ul>
+			<li>List</li>
+			<li>of</li>
+			<li>bug</li>
+			<li>fixes</li>
+	</ul>
+	
+</div>

@@ -1,0 +1,19 @@
+﻿IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_ProductColors]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_ProductColors]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_ProductCategories]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_ProductCategories]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Products]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Products]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Categories]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Categories]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Colors]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Colors]
+GO

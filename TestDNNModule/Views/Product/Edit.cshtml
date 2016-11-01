@@ -1,0 +1,80 @@
+﻿@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Client.ClientResourceManagement
+@using DotNetNuke.Web.Mvc.Helpers
+
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<COM.Modules.TestDNNTestDNNModule.ViewModel.ProductFormVM>
+@{
+
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/css/bootstrap.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/css/site.css");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/bootstrap.min.js", 1);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/lodash.js", 1);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/angular.min.js", 2);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/app.js", 3);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/directive/common.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/product/productCtrl.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage, "~/DesktopModules/MVC/TestDNNModule/js/app/service/requestService.js", 20);
+
+}
+<div>
+
+  <div class="menu-edit" id="editmenu-@Dnn.ModuleContext.ModuleId" ng-controller="productformctrl" ng-init="onInit('@Dnn.ModuleContext.PortalAlias.HTTPAlias', '@Dnn.ModuleContext.PortalSettings.ActiveTab.TabPath', '@Model.Product.Id', '@Model.Product.ModuleId')">
+      <h1>Product Detail</h1>
+      <br />
+      <form class="form-horizontal">
+          <div class="form-group">
+              <label for="Code" class="col-sm-2 control-label">Code</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" ng-required="true" ng-model="vm.Product.Code" name="Code" placeholder="Enter Text...">
+              </div>
+          </div>
+          <div class="form-group form-group-top">
+              <label for="Name" class="col-sm-2 control-label form-group-top">Name</label>
+              <div class="col-sm-10 form-group-top">
+                  <input type="text" class="form-control" ng-required="true" ng-model="vm.Product.Name" name="Name" placeholder="Enter Text...">
+              </div>
+          </div>
+          
+          <div class="form-group form-group-top">
+              <label for="Category" class="col-sm-2 control-label form-group-top">Category</label>
+              <div class="col-sm-10 form-group-top">
+                  <label ng-repeat="cate in vm.Categories track by $index" style="margin-right: 10px">
+                      <input type="checkbox" checklist-model="vm.SelectedCategories" checklist-value="cate">
+                      <span>{{cate.Name}}</span>
+                  </label>
+              </div>
+          </div>
+          <div class="form-group form-group-top">
+              <label for="Colors" class="col-sm-2 control-label form-group-top">Colors</label>
+              <div class="col-sm-10 form-group-top">
+                      <div class="panel-group">
+                          <div class="panel panel-default">
+                              <div id="collapseAction" class="panel-collapse collapse in">
+                                  <div class="panel-body">
+                                      <div class="form-horizontal">
+                                          <div class="form-group" style="margin-bottom: 0px" ng-repeat="color in vm.Colors track by $index">
+                                                <input type="text" class="form-control" style="float:left;margin-right: 10px;width:20%" ng-required="true" ng-model="color.Text" name="Colors">
+                                                <label class="control-label" style="float:left;margin-right: 5px">Description</label>
+                                                <input type="text" class="form-control" style="width:30%" ng-model="color.Description" name="Colors" placeholder="Enter Text...">
+                                          </div>
+                                      </div>
+
+                                      <button type="button" class="btn btn-primary pull-right form-group-top" ng-click="addColor()">Add Color</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+          </div>
+          <div class="form-group form-group-top">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="button" class="btn btn-primary pull-right form-group-top" ng-click="save()">@Dnn.LocalizeString("Save")</button>
+              </div>
+          </div>
+      </form>
+  </div>
+
+</div>
+<!-- /.modal -->
+<script type="text/javascript">
+</script>

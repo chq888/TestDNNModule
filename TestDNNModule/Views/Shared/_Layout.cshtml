@@ -1,0 +1,13 @@
+﻿@using DotNetNuke.Web.Client.ClientResourceManagement
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc
+@using DotNetNuke.Web.Mvc.Helpers
+@{
+    //ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/DotNetNuclear/RestaurantMenu/Resources/bootstrap/css/bootstrap.min.css");
+    //ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage, "~/DesktopModules/MVC/DotNetNuclear/RestaurantMenu/Resources/module.css");
+}
+
+
+<div id="mvcContainer-@Dnn.ActiveModule.ModuleID" ng-app="vib">
+    @RenderBody()
+</div>

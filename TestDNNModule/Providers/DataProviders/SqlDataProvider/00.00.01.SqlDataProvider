@@ -1,0 +1,119 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Products]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Products]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}TestDNNModule_Products
+    (
+    Id int NOT NULL IDENTITY (1, 1),
+    [Name] nvarchar(100) NOT NULL,
+    Code nvarchar(100) NOT NULL,
+	ModuleId int NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}TestDNNModule_Products ADD CONSTRAINT
+    PK_{objectQualifier}TestDNNModule_Products PRIMARY KEY CLUSTERED 
+    (
+    Id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Categories]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Categories]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}TestDNNModule_Categories
+    (
+    Id int NOT NULL IDENTITY (1, 1),
+    [Name] nvarchar(100) NOT NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}TestDNNModule_Categories ADD CONSTRAINT
+    PK_{objectQualifier}TestDNNModule_Categories PRIMARY KEY CLUSTERED 
+    (
+    Id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_Colors]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_Colors]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}TestDNNModule_Colors
+    (
+    Id int NOT NULL IDENTITY (1, 1),
+    [Text] nvarchar(100) NOT NULL,
+	[Description] nvarchar(500) NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}TestDNNModule_Colors ADD CONSTRAINT
+    PK_{objectQualifier}TestDNNModule_Colors PRIMARY KEY CLUSTERED 
+    (
+    Id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_ProductColors]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_ProductColors]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}TestDNNModule_ProductColors
+    (
+    Id int NOT NULL IDENTITY (1, 1),
+    [ProductId] int NOT NULL FOREIGN KEY REFERENCES {databaseOwner}{objectQualifier}TestDNNModule_Products(Id),
+	[ColorId] int NOT NULL FOREIGN KEY REFERENCES {databaseOwner}{objectQualifier}TestDNNModule_Colors(Id)
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}TestDNNModule_ProductColors ADD CONSTRAINT
+    PK_{objectQualifier}TestDNNModule_ProductColors PRIMARY KEY CLUSTERED 
+    (
+    Id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}TestDNNModule_ProductCategories]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}TestDNNModule_ProductCategories]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}TestDNNModule_ProductCategories
+    (
+    Id int NOT NULL IDENTITY (1, 1),
+    [ProductId] int NOT NULL FOREIGN KEY REFERENCES {databaseOwner}{objectQualifier}TestDNNModule_Products(Id),
+	[CategoryId] int NOT NULL FOREIGN KEY REFERENCES {databaseOwner}{objectQualifier}TestDNNModule_Categories(Id)
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+ALTER TABLE {databaseOwner}{objectQualifier}TestDNNModule_ProductCategories ADD CONSTRAINT
+    PK_{objectQualifier}TestDNNModule_ProductCategories PRIMARY KEY CLUSTERED 
+    (
+    Id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
