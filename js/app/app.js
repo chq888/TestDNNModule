@@ -1,1 +1,1 @@
-﻿var myApp = angular.module('vib', []);
+﻿var myApp = angular.module('com', []);
