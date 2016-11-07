@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using COM.Modules.TestDNNTestDNNModule.Components;
 using COM.Modules.TestDNNTestDNNModule.Models;
@@ -61,6 +62,16 @@ namespace COM.Modules.TestDNNTestDNNModule.Controllers
             ProductFormVM vm = new ProductFormVM();
             vm.Product = new Product() {Id = itemId, ModuleId = CurrentModuleId};
             return View(vm);
+        }
+
+
+        public FileContentResult Export()
+
+        {
+            StringBuilder sb = new StringBuilder();
+            //create csv lines here
+            return File(new System.Text.UTF8Encoding().GetBytes(sb.ToString()), "text/csv", string.Format("PickupExport-{0:yyyyMMdd}.csv", System.DateTime.Now));
+
         }
 
     }

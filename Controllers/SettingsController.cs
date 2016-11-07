@@ -41,7 +41,6 @@ namespace COM.Modules.TestDNNTestDNNModule.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supportsTokens"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
