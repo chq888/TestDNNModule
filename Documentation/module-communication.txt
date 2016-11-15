@@ -1,0 +1,108 @@
+﻿ Dotnetnuke Inter-module communication (IMC) simplified on version 06.00.02 with c#
+Few days ago I developed a module in which I used IMC which really interested me so I decided to write about it. I will try to explain in this post everything that is necessary to make IMC work in the modules.
+
+What is Inter Module Communication?
+
+As the name implies if you want to communicate or in other words send data from one module to another IMC is one way of doing it.
+
+I will be using module A and module B as the names in my post.
+
+An Observation:
+
+One thing I observed while playing around with it that if module A is on page 1 and module B is on page 2 then the data doesn't get passed. If both the modules are on the same page then only the data get passed.
+
+Example:
+
+The basic exercise that I will be performing is to take input from the textbox in Module A and display it in label in Module B.
+
+1) You will be using IModuleCommunicator and IModuleListener interfaces to make this communication works. You will be implementing IModuleCommunicator in the class in the module you want to send the data from and IModuleListener will be implemented in the class in the module in which you want to receive the data.
+
+2) You can have multiple listeners as well . if this is the case then every listener will act as a receiver for the data the communicator module is sending.
+
+3) You will be using ModuleCommunicationEventArgs class to send the data from communicator module class to the Listener module class.
+
+4) DotNetNuke.Entities.Modules.Communications is the namespace that is used in the process.
+
+Module A (Communicator)  
+A.ascx
+
+?
+
+  
+<asp:TextBox ID="txtdisplay" runat="server"></asp:TextBox>
+<asp:Button ID="btnclick" runat="server" Text="Button" OnClick="btnclick_Click" />
+
+
+A.ascx.cs
+?
+
+  
+using DotNetNuke;  
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules;
+ 
+using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Security;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
+using DotNetNuke.Entities.Modules.Communications;
+ 
+ 
+partial class A : PortalModuleBase,IModuleCommunicator
+{
+ public event ModuleCommunicationEventHandler ModuleCommunication;
+ 
+ protected void btnclick_Click(object sender, EventArgs e)
+ {
+    try
+    {
+       ModuleCommunicationEventArgs MCArgs = new ModuleCommunicationEventArgs();
+       MCArgs.Sender = "anyname";
+       MCArgs.Target = "anything to send in the target to be used as u wish";
+       MCArgs.Text =  txtdisplay.Text;
+       MCArgs.Value = txtdisplay.Text;
+ 
+          if (ModuleCommunication != null)
+          {
+               ModuleCommunication(this, MCArgs);
+          }
+    }
+        // other implementation
+    catch (Exception exc) //Module failed to load
+    {
+          Exceptions.ProcessModuleLoadException(this, exc);
+    }
+ }
+}
+Module B (Listener) 
+B.ascx
+?
+1
+  
+<label id="lbldisplay" runat="server" text="Label"></label>
+B.ascx.cs
+?
+  
+using DotNetNuke;
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules;
+ 
+using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Security;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
+using DotNetNuke.Entities.Modules.Communications;
+ 
+partial class B: PortalModuleBase, IModuleListener
+{
+      public void OnModuleCommunication(object s, ModuleCommunicationEventArgs e)
+      {
+         if (e.Sender == "anyname")
+         {
+             lbldisplay.Text= (string)e.Value;
+         }
+       }
+        // other implementation
+}

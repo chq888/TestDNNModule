@@ -23,11 +23,22 @@ using COM.Modules.TestDNNTestDNNModule.Components;
 using COM.Modules.TestDNNTestDNNModule.Models;
 using COM.Modules.TestDNNTestDNNModule.ViewModel;
 
+
+
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules.Internal;
+using DotNetNuke.Security;
+using DotNetNuke.Security.Permissions;
+using DotNetNuke.Entities.Tabs;
+
 namespace COM.Modules.TestDNNTestDNNModule.Controllers
 {
 
+
     /// <summary>
     /// /testdnn/desktopmodules/services/API/ProductApi/GET
+    /// /desktopmodules/namespace-of-your-module/API/controller-name/method-name
     /// </summary>
     public class ProductApiController : ApiControllerBase
     {
@@ -38,6 +49,8 @@ namespace COM.Modules.TestDNNTestDNNModule.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
 
+        //[AllowAnonymous]
+        [AllowAnonymous]
         public HttpResponseMessage Get()
         {
             var items = ProductDataManager.Instance.GetAll();

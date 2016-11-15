@@ -141,6 +141,7 @@
     <Content Include="css\site.css" />
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
+    <Content Include="Documentation\module-communication.txt" />
     <Content Include="js\angular.min.js" />
     <Content Include="js\app\app.js" />
     <Content Include="js\app\directive\common.js" />
@@ -150,6 +151,7 @@
     <Content Include="js\lodash.js" />
     <Content Include="License.txt" />
     <Content Include="module.css" />
+    <Content Include="Ref.txt" />
     <Content Include="ReleaseNotes.txt" />
   </ItemGroup>
   <ItemGroup>

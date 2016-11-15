@@ -35,9 +35,11 @@ namespace COM.Modules.TestDNNTestDNNModule
                 namespaces: new[] { "COM.Modules.TestDNNTestDNNModule.Controllers" }
             );
 
+            //mapRouteManager.MapHttpRoute("MyModuleName.WebAPI", "default", "{controller}/{action}", new[] { "MyModuleName.WebAPI" });
+
             //TODO find out where start-up app to init data, it's ok now
             var cates = CategoryDataManager.Instance.GetAll();
-            if (cates == null || cates.Count() == 0)
+            if (cates == null || !cates.Any())
             {
                 CategoryDataManager.Instance.Create(new Category() { Name = "Cate A" });
                 CategoryDataManager.Instance.Create(new Category() { Name = "Cate B" });

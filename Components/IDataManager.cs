@@ -32,6 +32,9 @@ namespace COM.Modules.TestDNNTestDNNModule.Components
         TEntity Get(int itemId);
         TEntity Get(int itemId, int moduleId);
         TEntity GetNewItem();
+
+        IPagedList<TEntity> Get(string searchTerm, int moduleId, int pageIndex, int pageSize);
+
         void Update(TEntity t);
 
     }

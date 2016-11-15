@@ -65,6 +65,7 @@ namespace COM.Modules.TestDNNTestDNNModule.Controllers
         }
 
 
+        [ModuleAction(ControlKey = "Export", TitleKey = "Export")]
         public FileContentResult Export()
 
         {

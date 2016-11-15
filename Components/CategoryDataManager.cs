@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using DotNetNuke.Data;
 using DotNetNuke.Framework;
 using COM.Modules.TestDNNTestDNNModule.Models;
+using DotNetNuke.Collections;
 
 namespace COM.Modules.TestDNNTestDNNModule.Components
 {
@@ -31,6 +32,11 @@ namespace COM.Modules.TestDNNTestDNNModule.Components
             }
 
             return p;
+        }
+
+        public IPagedList<Category> Get(string searchTerm, int moduleId, int pageIndex, int pageSize)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Create(Category t)

@@ -1,0 +1,3 @@
+﻿http://bytutorial.com/blogs/dnn
+http://www.dnnsoftware.com/community-blog/cid/134683/authorization-in-the-new-dnn-services-framework
+https://talkdotnet.wordpress.com/category/dotnetnuke/page/2/

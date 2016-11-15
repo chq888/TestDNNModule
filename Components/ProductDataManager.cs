@@ -17,6 +17,9 @@ using DotNetNuke.Data;
 using DotNetNuke.Framework;
 using COM.Modules.TestDNNTestDNNModule.Models;
 using COM.Modules.TestDNNTestDNNModule.ViewModel;
+using DotNetNuke.Collections;
+using System;
+using System.Web.WebPages;
 
 namespace COM.Modules.TestDNNTestDNNModule.Components
 {
@@ -273,6 +276,33 @@ namespace COM.Modules.TestDNNTestDNNModule.Components
             return () => new ProductDataManager();
         }
 
+        public IPagedList<Product> Get(string searchTerm, int moduleId, int pageIndex, int pageSize)
+        {
+            //Requires.NotNegative("portalId", portalId);
+            IEnumerable<Product> list = new List<Product>();
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                var rep = ctx.GetRepository<Product>();
+                if (searchTerm.IsEmpty())
+                {
+                    if (moduleId > 0)
+                    {
+                        list = rep.GetPage(moduleId, pageIndex, pageSize);
+                    }
+                }
+                else
+                {
+                    if (moduleId > 0)
+                    {
+                        list = rep.Find(pageIndex, pageSize, " like %" + searchTerm + "%");
+                    }
+                }
+
+
+            }
+
+            return new PagedList<Product>(list, pageIndex, pageSize);
+        }
     }
 
 }
